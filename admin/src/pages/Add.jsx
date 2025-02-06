@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { assets } from '../assets/admin_assets/assets';
-import { backendUrl } from '../App';
+import { backendUrl } from '../App.jsx';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
 const Add = ({ token }) => {
-
     const [image1, setImage1] = useState(false)
     const [image2, setImage2] = useState(false)
     const [image3, setImage3] = useState(false)
     const [image4, setImage4] = useState(false)
-
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState("")
@@ -18,15 +15,10 @@ const Add = ({ token }) => {
     const [subCategory, setSubCategory] = useState("Topwear")
     const [bestseller, setBestseller] = useState(false)
     const [sizes, setSizes] = useState([])
-
     const onSubmitHandler = async (e) => {
-
         e.preventDefault()
-
         try {
-
             const formData = new FormData()
-
             formData.append("name", name)
             formData.append("description", description)
             formData.append("price", price)
@@ -40,8 +32,8 @@ const Add = ({ token }) => {
             image3 && formData.append("image3", image3)
             image4 && formData.append("image4", image4)
 
-            const response = await axios.post(backendUrl + '/api/product/add', formData, { headers: { token } })
-            
+            const response = await axios.post(backendUrl + "/api/product/add", formData, {headers:{token}})
+            // console.log(response)
             if (response.data.success) {
                 toast.success(response.data.message)
                 setName('')
@@ -53,10 +45,12 @@ const Add = ({ token }) => {
                 setPrice('')
             } else {
                 toast.error(response.data.message)
+                // console.log(response,"fdxgchvjbkk")
             }
 
         } catch (error) {
             console.log(error);
+            // console.log(token)
             toast.error(error.message)
         }
     }

@@ -2,18 +2,22 @@
 // nodemon razorpay stripe validator cloudinary bcrypt 
 import express from "express";
 import cors from 'cors'
-import 'dotenv/config'
+// import 'dotenv/config'
 import connectDB from "./config/mongodb.js";
 import connectCoudinary from "./config/cloudinary.js";
 import userRouter from "./routes/userRoute.js";
 import productRouter from "./routes/productRoute.js";
+import dotenv from "dotenv"
+dotenv.config({
+    path: './.env'
+})
 
 //app config
 const app = express()
 
 const port = process.env.PORT || 4000
 connectDB()
-connectCoudinary()
+await connectCoudinary()
 
 // Middleware
 app.use(express.json())

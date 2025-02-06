@@ -14,6 +14,8 @@ const Login = ({setToken}) => {
             const response = await axios.post(backendUrl + '/api/user/admin', { email, password })
             if (response.data.success) {
                 setToken(response.data.token)
+                console.log(password)
+                console.log(response.data.token)
             } else {
                 toast.error(response.data.message)
             }
