@@ -63,6 +63,7 @@ const listProducts = async (req, res) => {
     try {
 
         const products = await productModel.find({})
+        console.log(products)
         res.json({success: true, products})
         
     } catch (error) {

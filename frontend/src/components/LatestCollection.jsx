@@ -6,11 +6,11 @@ import ProductItem from './ProductItem';
 const LatestCollection = () => {
   const {products} = useContext(ShopContext)
   const [latestProducts,setLastestProducts] = useState([])
-
+console.log(products,latestProducts)
   useEffect(()=>{
     setLastestProducts(products.slice(0,10))
 },[products])
-  console.log(products.name)
+  // console.log(products)
   return (
     <div className='my-10'>
     <div className='text-center py-8 text-3xl'>
