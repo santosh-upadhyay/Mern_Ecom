@@ -14,6 +14,25 @@ const Login = () => {
 
   const onSubmitHandler = async(event) =>{
     event.preventDefault();
+    try {
+      if(currentState==='Sign Up'){
+        const response = await axios.post(backend+'api/user/register',{name,email,password})
+        if(response.data.success){
+          setToken(response.data.token)
+          localStorage.setItem('token',response.data.token)
+        }else{
+          toast.error(response.data.message)
+        }
+      }else{
+        const response = await axios.post(backendUrl+ '/api/user/login', {email,password})
+        if(response.data.success){
+        setToken(response.data.token)
+        localStorage.setItem('token',response.data.token)
+      }
+    }
+    } catch (error) {
+      toast.error(error.message)
+    }
    
   } 
 
@@ -25,7 +44,7 @@ const Login = () => {
 
   return (
     <form 
-    // onSubmit={onSubmitHandler} 
+    onSubmit={onSubmitHandler} 
     className='flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800'>
       <div className="inline-flex items-center gap-2 mb-2 mt-10">
         <p className='prata-regular text-3xl'>{currentState}</p>
