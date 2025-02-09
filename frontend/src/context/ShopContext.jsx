@@ -15,7 +15,6 @@ const ShopContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({})
     const [products , setProducts] = useState([])
     const [token, setToken] = useState('')
-    
     const navigate = useNavigate()
     const addToCart=async(itemId,size)=>{
         if (!size) {
@@ -65,6 +64,24 @@ const ShopContextProvider = (props) => {
         }
         return totalCount;
     }
+ 
+    const updateQuantity = async (itemId, size, quantity) => {
+        let cartData = structuredClone(cartItems)
+        cartData[itemId][size] = quantity
+        setCartItems(cartData)
+
+        if (token) {
+            try {
+
+                await axios.post(backendUrl + '/api/cart/update', { itemId, size, quantity }, { headers: { token } })
+
+            } catch (error) {
+                console.log(error)
+                toast.error(error.message)
+            }
+        }
+    }
+
     const getCartAmount = () => {
         let totalAmount = 0;
         for (const items in cartItems) {
@@ -100,23 +117,37 @@ const ShopContextProvider = (props) => {
 
     }
    }
+   const getUserCart = async (token) => {
+    try {
+
+        const response = await axios.post(backendUrl + '/api/cart/get', {}, { headers: { token } })
+        if (response.data.success) {
+            setCartItems(response.data.cartData)
+        }
+
+    } catch (error) {
+        console.log(error);
+        toast.error(error.message)
+    }
+}
    useEffect(()=>{
     getProductsData()
 // console.log(Process.env.VITE_BACKEND_URL)
    },[])
-   useEffect(()=>{
-    if(!token && localStorage.getItem('token')){
+   useEffect(() => {
+    if (!token && localStorage.getItem('token')) {
         setToken(localStorage.getItem('token'))
+        getUserCart(localStorage.getItem('token'))
     }
-   },[])
+}, [])
     const value = {
         products, currency, delivery_fee,
          search, setSearch, showSearch, setShowSearch, 
          cartItems, setCartItems,
          addToCart ,
          getCartCount, 
-        // updateQuantity
-        // ,
+        updateQuantity
+        ,
          getCartAmount, 
         navigate, 
         backendUrl, 
