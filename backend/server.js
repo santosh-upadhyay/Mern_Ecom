@@ -8,6 +8,7 @@ import connectCoudinary from "./config/cloudinary.js";
 import userRouter from "./routes/userRoute.js";
 import productRouter from "./routes/productRoute.js";
 import dotenv from "dotenv"
+import cartRouter from "./routes/cartRoute.js";
 dotenv.config({
     path: './.env'
 })
@@ -27,7 +28,7 @@ app.use(cors());
 // api endpoint
 app.use('/api/user',userRouter)
 app.use('/api/product',productRouter)
-
+app.use('/api/cart', cartRouter)
 app.get('/',(req,res)=>{
     res.send("API WORKING")
 })
