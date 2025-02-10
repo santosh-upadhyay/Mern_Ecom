@@ -112,7 +112,7 @@ const ShopContextProvider = (props) => {
             toast.error(response.data.message)
         }
     }catch(error){
-        console.log(error)
+        console.log(error,"santosh")
         toast.error(response.data.message)
 
     }
@@ -139,7 +139,7 @@ const ShopContextProvider = (props) => {
         setToken(localStorage.getItem('token'))
         getUserCart(localStorage.getItem('token'))
     }
-}, [])
+}, []) 
     const value = {
         products, currency, delivery_fee,
          search, setSearch, showSearch, setShowSearch, 

@@ -1,18 +1,39 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import Title from '../components/Title';
-// import axios from 'axios';
+import axios from 'axios';
 
-const Order = () => {
+const Orders = () => {
 
   const {
-    // backendUrl, 
+    backendUrl, 
     token ,currency} = useContext(ShopContext)
 
   const [orderData, setorderData] = useState([])
 
   const loadOrderData = async () => {
-    
+    try {
+      if (!token) {
+        return null
+      }
+      const response = await axios.post(backendUrl + '/api/order/userorders', {}, {headers:{token}})
+      if (response.data.success) {
+        let allOrdersItem = []
+        response.data.orders.map((order) => {
+          order.items.map((item) => {
+            item['status'] = order.status
+            item['payment'] = order.payment
+            item['paymentMethod'] = order.paymentMethod
+            item['date'] = order.date
+            allOrdersItem.push(item)
+          })
+        })
+        setorderData(allOrdersItem.reverse())
+      }
+      
+    } catch (error) {
+      console.log("eij")
+    }
   }
 
   useEffect(() => {
@@ -57,4 +78,4 @@ const Order = () => {
   );
 }
 
-export default Order;
+export default Orders;
