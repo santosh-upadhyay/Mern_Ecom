@@ -1,5 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
-import productModel from "../models/Productmodel.js";
+import productModel from "../models/productModel.js";
 // import CLOUDINARY_API_KEY from "..\.env"
 const addProduct = async (req, res) => {
   try {
