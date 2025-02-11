@@ -2,6 +2,7 @@
 // nodemon razorpay stripe validator cloudinary bcrypt 
 import express from "express";
 import cors from 'cors'
+
 // import 'dotenv/config'
 import connectDB from "./config/mongodb.js";
 import connectCoudinary from "./config/cloudinary.js";
@@ -24,8 +25,13 @@ await connectCoudinary()
 // Middleware
 app.use(express.json())
 // whatever req we get pass using json
-app.use(cors());
 
+const corsConfig = {
+    origin:"*",
+    credential:true,
+    methods:["GET","POST","PUT","DELETE"];
+}
+app.use(cors(corsConfig));
 // api endpoint
 app.use('/api/user',userRouter)
 app.use('/api/product',productRouter)
