@@ -15,11 +15,3 @@ orderRouter.post('/place',authUser,placeOrder)
 // User Feature
 orderRouter.post('/userorders',authUser,userOrders)
 export default orderRouter
-
-
-
-
-
-
-
-

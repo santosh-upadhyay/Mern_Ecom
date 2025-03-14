@@ -1,0 +1,47 @@
+What is the difference between state and props?
+
+In React, props are passed to a component from a parent component,
+while state is managed within a component. Both props and state are JavaScript objects
+ that affect the output of a component's rende
+
+What is React Router?
+React Router is a JavaScript library that helps with navigation and routing in
+ React applications. It enables users to create dynamic routes that map URLs to components. 
+ This allows users to navigate single-page applications (SPAs) without refreshing the page
+
+
+Effect Cleanup
+Some effects require cleanup to reduce memory leaks.
+Timeouts, subscriptions, event listeners, and other effects that are no longer needed should
+be disposed.We do this by including a return function at the end of the useEffect Hook.
+
+ return () => clearTimeout(timer)
+
+ What are controlled components in React?
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

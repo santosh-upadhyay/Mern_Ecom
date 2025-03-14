@@ -16,6 +16,7 @@ const ShopContextProvider = (props) => {
     const [products , setProducts] = useState([])
     const [token, setToken] = useState('')
     const navigate = useNavigate()
+
     const addToCart=async(itemId,size)=>{
         if (!size) {
             toast.error('Select Product Size');
@@ -107,7 +108,7 @@ const ShopContextProvider = (props) => {
         const response = await axios.get(backendUrl+ '/api/product/list')
         if(response.data.success){
             setProducts(response.data.products)
-            // console.log(response.data.products)
+            // console.log(response)
         }else{
             toast.error(response.data.message)
         }
